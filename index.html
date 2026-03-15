@@ -41,8 +41,23 @@ nav.solid{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bot
 
 /* HERO */
 #hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:0 3rem;position:relative;overflow:hidden}
+.hero-layout{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:4rem;position:relative;z-index:2;max-width:1100px;margin:0 auto;width:100%}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,0,0,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.035) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
-.hero-inner{position:relative;z-index:2;max-width:900px}
+.hero-inner{position:relative;z-index:2}
+.hero-right{display:flex;justify-content:center;align-items:center;opacity:0;animation:fadeUp .6s .9s forwards}
+
+/* Hero card */
+.hero-card{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.1);width:100%;max-width:380px;animation:float 5s ease-in-out infinite}
+.hc-head{padding:1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.75rem;background:var(--card)}
+.hc-title{font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-left:.25rem}
+.hc-body{padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:.75rem}
+.hc-row{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid rgba(0,0,0,.05)}
+.hc-row:last-child{border-bottom:none}
+.hc-key{font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:.06em}
+.hc-val{font-size:.82rem;color:var(--text);font-weight:500}
+.hc-status{font-family:var(--mono);font-size:.72rem;color:var(--green);font-weight:700}
+.hc-footer{padding:1rem 1.5rem;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:.5rem;background:var(--card)}
+.hc-tag{background:rgba(59,32,7,.07);color:var(--brown);border:1px solid rgba(59,32,7,.2);padding:.25rem .7rem;border-radius:100px;font-family:var(--mono);font-size:.65rem}
 .hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(59,32,7,.07);border:1px solid rgba(59,32,7,.2);color:var(--brown);font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;padding:.35rem .9rem;border-radius:100px;margin-bottom:2rem;opacity:0;animation:fadeUp .5s .2s forwards}
 .hero-tag::before{content:'';width:6px;height:6px;background:var(--brown);border-radius:50%;animation:dot-pulse 1.5s ease-in-out infinite}
 .hero-h1{font-size:clamp(3rem,9vw,7rem);font-weight:800;line-height:1.0;letter-spacing:-.03em;margin-bottom:1rem;opacity:0;animation:fadeUp .5s .4s forwards}
@@ -56,9 +71,8 @@ nav.solid{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bot
 .btn-primary:hover{background:var(--brown-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(59,32,7,.2)}
 .btn-outline{background:transparent;color:var(--text);padding:.8rem 2rem;border-radius:4px;font-family:var(--mono);font-size:.82rem;border:1px solid rgba(0,0,0,.2);text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem}
 .btn-outline:hover{border-color:var(--brown);color:var(--brown);transform:translateY(-2px)}
-.hero-stats{position:absolute;bottom:4rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:row;gap:4rem;opacity:0;animation:fadeUp .6s 1s forwards;z-index:2}
-.stat-item{text-align:center}
-.stat-n{font-size:2.2rem;font-weight:800;font-family:var(--mono);color:var(--brown);line-height:1}
+.hero-stats{display:flex;flex-direction:row;gap:3rem;opacity:0;animation:fadeUp .6s 1s forwards;z-index:2;margin-top:2.5rem}
+.stat-item{text-align:center}.stat-n{font-size:2.2rem;font-weight:800;font-family:var(--mono);color:var(--brown);line-height:1}
 .stat-l{font-size:.72rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
 .scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fadeUp .5s 1.2s forwards;z-index:2}
 .scroll-hint span{font-family:var(--mono);font-size:.65rem;letter-spacing:.15em;color:var(--muted);text-transform:uppercase}
@@ -291,7 +305,7 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;display:flex;justify
   .nav-links,.nav-cta{display:none}
   #hero,.section{padding-left:1.25rem;padding-right:1.25rem}
   #hero{padding-top:5rem}
-  .about-grid,.proj-grid,.contact-wrap{grid-template-columns:1fr}
+  .about-grid,.proj-grid,.contact-wrap,.hero-layout{grid-template-columns:1fr}
   .skills-wrap{grid-template-columns:1fr}
   .hero-stats{position:static;flex-direction:row;margin-top:3rem;animation:none;opacity:1}
   footer{flex-direction:column;gap:.75rem;padding:1.5rem;text-align:center}
@@ -309,28 +323,51 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;display:flex;justify
     <li><a href="#education">education</a></li>
     <li><a href="#contact">contact</a></li>
   </ul>
-  <a href="mailto:shaunak.menon.17@gmail.com" class="nav-cta">say hello ↗</a>
+
 </nav>
 
 <!-- HERO -->
 <section id="hero">
   <div class="hero-grid"></div>
-  <div class="hero-inner">
-    <h1 class="hero-h1">
-      <div class="name-first">Shaunak</div>
-      <div class="name-last">Menon.</div>
-    </h1>
-    <p class="hero-sub">// <span id="typed" class="typed-col"></span><span class="blink">|</span></p>
-    <p class="hero-desc">B.E. Computer Engineering student at Shah and Anchor Kutchhi Engineering College, Mumbai. I build things with Python, Java &amp; web technologies — from smart hardware to full-stack web apps.</p>
-    <div class="hero-btns">
-      <a href="#projects" class="btn-primary">View my work ↓</a>
-      <a href="#contact" class="btn-outline">Get in touch →</a>
+  <div class="hero-layout">
+    <div class="hero-inner">
+      <h1 class="hero-h1">
+        <div class="name-first">Shaunak</div>
+        <div class="name-last">Menon.</div>
+      </h1>
+
+      <p class="hero-desc">B.E. Computer Engineering student at Shah and Anchor Kutchhi Engineering College, Mumbai. I build things with Python, Java &amp; web technologies — from smart hardware to full-stack web apps.</p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn-primary">View my work ↓</a>
+        <a href="#contact" class="btn-outline">Get in touch →</a>
+      </div>
+      <div class="hero-stats" id="hero-stats">
+        <div class="stat-item"><div class="stat-n">8.7</div><div class="stat-l">Best CGPA</div></div>
+        <div class="stat-item"><div class="stat-n">3</div><div class="stat-l">Projects built</div></div>
+        <div class="stat-item"><div class="stat-n">8</div><div class="stat-l">Certifications</div></div>
+      </div>
     </div>
-  </div>
-  <div class="hero-stats" id="hero-stats">
-    <div class="stat-item"><div class="stat-n">9.09</div><div class="stat-l">Best CGPA</div></div>
-    <div class="stat-item"><div class="stat-n">3</div><div class="stat-l">Projects built</div></div>
-    <div class="stat-item"><div class="stat-n">8</div><div class="stat-l">Certifications</div></div>
+    <div class="hero-right" id="hero-right">
+      <div class="hero-card">
+        <div class="hc-head">
+          <div class="dots"><div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div></div>
+          <span class="hc-title">shaunak.profile</span>
+        </div>
+        <div class="hc-body">
+          <div class="hc-row"><span class="hc-key">role</span><span class="hc-val">B.E. Computer Engineering</span></div>
+          <div class="hc-row"><span class="hc-key">college</span><span class="hc-val">SAKEC, Mumbai</span></div>
+          <div class="hc-row"><span class="hc-key">honours</span><span class="hc-val">AI &amp; ML</span></div>
+          <div class="hc-row"><span class="hc-key">location</span><span class="hc-val">Mumbai, India 📍</span></div>
+          <div class="hc-row"><span class="hc-key">languages</span><span class="hc-val">Python · Java · C</span></div>
+        </div>
+        <div class="hc-footer">
+          <span class="hc-tag">Arduino</span>
+          <span class="hc-tag">MySQL</span>
+          <span class="hc-tag">HTML/CSS</span>
+          <span class="hc-tag">JDBC</span>
+        </div>
+      </div>
+    </div>
   </div>
   <div class="scroll-hint">
     <div class="scroll-line"></div>
@@ -619,11 +656,7 @@ const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersect
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
 // Hero stats position
-function posStats(){
-  const s=document.getElementById('hero-stats');
-  if(window.innerWidth>768){s.style.position='absolute';s.style.left='50%';s.style.transform='translateX(-50%)';s.style.bottom='4rem';s.style.right='auto';}
-  else{s.style.position='static';s.style.transform='none';}
-}
+function posStats(){}
 posStats();window.addEventListener('resize',posStats);
 
 // Floating particles in hero
@@ -643,15 +676,4 @@ for(let i=0;i<18;i++){
   hero.appendChild(p);
 }
 
-// Cursor glow trail
-const trail=document.createElement('div');
-trail.style.cssText='position:fixed;width:18px;height:18px;border-radius:50%;background:rgba(59,32,7,.18);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s,opacity .3s;opacity:0;';
-document.body.appendChild(trail);
-let mx=0,my=0,tx=0,ty=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;trail.style.opacity='1';});
-document.addEventListener('mouseleave',()=>trail.style.opacity='0');
-(function animTrail(){
-  tx+=(mx-tx)*.15;ty+=(my-ty)*.15;
-  trail.style.left=tx+'px';trail.style.top=ty+'px';
-  requestAnimationFrame(animTrail);
 })();
