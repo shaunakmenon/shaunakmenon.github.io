@@ -56,8 +56,8 @@ nav.solid{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bot
 .btn-primary:hover{background:var(--brown-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(59,32,7,.2)}
 .btn-outline{background:transparent;color:var(--text);padding:.8rem 2rem;border-radius:4px;font-family:var(--mono);font-size:.82rem;border:1px solid rgba(0,0,0,.2);text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem}
 .btn-outline:hover{border-color:var(--brown);color:var(--brown);transform:translateY(-2px)}
-.hero-stats{position:absolute;right:3rem;bottom:4rem;display:flex;flex-direction:column;gap:1.5rem;opacity:0;animation:fadeRight .6s 1s forwards;z-index:2}
-.stat-item{text-align:right}
+.hero-stats{position:absolute;bottom:4rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:row;gap:4rem;opacity:0;animation:fadeUp .6s 1s forwards;z-index:2}
+.stat-item{text-align:center}
 .stat-n{font-size:2.2rem;font-weight:800;font-family:var(--mono);color:var(--brown);line-height:1}
 .stat-l{font-size:.72rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
 .scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fadeUp .5s 1.2s forwards;z-index:2}
@@ -210,6 +210,82 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;display:flex;justify
 @keyframes blink{50%{opacity:0}}
 .blink{animation:blink .8s step-end infinite}
 
+/* NEW ANIMATIONS */
+@keyframes float{0%,100%{transform:translateY(0px)}50%{transform:translateY(-12px)}}
+@keyframes shimmer{0%{background-position:200% center}100%{background-position:-200% center}}
+@keyframes particle-drift{0%{transform:translateY(0) translateX(0);opacity:0}10%{opacity:.6}90%{opacity:.4}100%{transform:translateY(-100vh) translateX(60px);opacity:0}}
+@keyframes glow-pulse{0%,100%{box-shadow:0 0 0 0 rgba(59,32,7,0)}50%{box-shadow:0 0 24px 4px rgba(59,32,7,.15)}}
+@keyframes slide-in-left{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slide-in-right{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes pop-in{0%{opacity:0;transform:scale(.85)}70%{transform:scale(1.04)}100%{opacity:1;transform:scale(1)}}
+@keyframes border-spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+@keyframes count-up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* Hero name shimmer effect */
+.hero-h1 .name-first{
+  background:linear-gradient(90deg,var(--text) 0%,var(--brown) 40%,var(--text) 60%,var(--text) 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:shimmer 4s linear infinite 2s;
+}
+.hero-h1 .name-last{
+  background:linear-gradient(90deg,var(--brown) 0%,#c4581a 40%,var(--brown) 60%,var(--brown) 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:shimmer 4s linear infinite 2.3s;
+}
+
+/* Floating stat items */
+.stat-item:nth-child(1){animation:float 4s ease-in-out infinite}
+.stat-item:nth-child(2){animation:float 4s ease-in-out infinite .6s}
+.stat-item:nth-child(3){animation:float 4s ease-in-out infinite 1.2s}
+
+/* Stat number glow */
+.stat-n{transition:transform .3s}
+.stat-item:hover .stat-n{transform:scale(1.15);color:var(--brown-hover)}
+
+/* Card hover animations */
+.proj-card{transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s ease}
+.proj-card:hover{transform:translateY(-8px) scale(1.01)}
+.skill-card{transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s ease}
+.skill-card:hover{transform:translateY(-6px) scale(1.02);animation:glow-pulse 2s ease-in-out infinite}
+.cert-card{transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s ease}
+.cert-card:hover{transform:translateY(-5px) scale(1.02)}
+
+/* Pill hover bounce */
+.pill{transition:transform .2s cubic-bezier(.34,1.56,.64,1),box-shadow .2s}
+.pill:hover{transform:translateY(-3px) scale(1.08);box-shadow:0 4px 12px rgba(0,0,0,.1)}
+
+/* Nav link underline animation */
+.nav-links a{position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--brown);transition:width .3s ease}
+.nav-links a:hover::after{width:100%}
+
+/* Button pulse on hover */
+.btn-primary{position:relative;overflow:hidden}
+.btn-primary::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,.15);transform:translateX(-100%);transition:transform .4s ease}
+.btn-primary:hover::after{transform:translateX(100%)}
+
+/* Contact links */
+.c-link{transition:transform .3s cubic-bezier(.34,1.56,.64,1),border-color .3s,box-shadow .3s}
+.c-link:hover{transform:translateX(8px) scale(1.01);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+
+/* Section headings slide in */
+.section .sec-h2{opacity:0;transform:translateX(-30px);transition:opacity .7s ease,transform .7s ease}
+.section.in .sec-h2{opacity:1;transform:translateX(0)}
+.section .eyebrow{opacity:0;transform:translateX(-20px);transition:opacity .6s ease .1s,transform .6s ease .1s}
+.section.in .eyebrow{opacity:1;transform:translateX(0)}
+
+/* Hero grid subtle animation */
+.hero-grid{animation:float 8s ease-in-out infinite;opacity:.6}
+
+/* Particles */
+.particle{position:absolute;width:4px;height:4px;border-radius:50%;background:var(--brown);opacity:0;pointer-events:none;animation:particle-drift linear infinite}
+
 @media(max-width:768px){
   nav{padding:.9rem 1.25rem}
   .nav-links,.nav-cta{display:none}
@@ -245,7 +321,7 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;display:flex;justify
       <div class="name-last">Menon.</div>
     </h1>
     <p class="hero-sub">// <span id="typed" class="typed-col"></span><span class="blink">|</span></p>
-    <p class="hero-desc">B.E. Information Technology student at Shah and Anchor Kutchhi Engineering College, Mumbai. I build things with Python, Java &amp; web technologies — from smart hardware to full-stack web apps.</p>
+    <p class="hero-desc">B.E. Computer Engineering student at Shah and Anchor Kutchhi Engineering College, Mumbai. I build things with Python, Java &amp; web technologies — from smart hardware to full-stack web apps.</p>
     <div class="hero-btns">
       <a href="#projects" class="btn-primary">View my work ↓</a>
       <a href="#contact" class="btn-outline">Get in touch →</a>
@@ -265,7 +341,7 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;display:flex;justify
 <!-- MARQUEE -->
 <div class="band">
   <div class="band-inner">
-    <span class="band-item">Python</span><span class="band-item">Java</span><span class="band-item">C Language</span><span class="band-item">HTML &amp; CSS</span><span class="band-item">MySQL</span><span class="band-item">Arduino</span><span class="band-item">Java Swing</span><span class="band-item">JDBC</span><span class="band-item">B.E. Information Technology</span><span class="band-item">SAKEC Mumbai</span><span class="band-item">AI &amp; ML Honours</span><span class="band-item">Python</span><span class="band-item">Java</span><span class="band-item">C Language</span><span class="band-item">HTML &amp; CSS</span><span class="band-item">MySQL</span><span class="band-item">Arduino</span><span class="band-item">Java Swing</span><span class="band-item">JDBC</span><span class="band-item">B.E. Information Technology</span><span class="band-item">SAKEC Mumbai</span><span class="band-item">AI &amp; ML Honours</span>
+    <span class="band-item">Python</span><span class="band-item">Java</span><span class="band-item">C Language</span><span class="band-item">HTML &amp; CSS</span><span class="band-item">MySQL</span><span class="band-item">Arduino</span><span class="band-item">Java Swing</span><span class="band-item">JDBC</span><span class="band-item">B.E. Computer Engineering</span><span class="band-item">SAKEC Mumbai</span><span class="band-item">AI &amp; ML Honours</span><span class="band-item">Python</span><span class="band-item">Java</span><span class="band-item">C Language</span><span class="band-item">HTML &amp; CSS</span><span class="band-item">MySQL</span><span class="band-item">Arduino</span><span class="band-item">Java Swing</span><span class="band-item">JDBC</span><span class="band-item">B.E. Computer Engineering</span><span class="band-item">SAKEC Mumbai</span><span class="band-item">AI &amp; ML Honours</span>
   </div>
 </div>
 
@@ -276,7 +352,7 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;display:flex;justify
   <div class="divider dv-br"></div>
   <div class="about-grid">
     <div class="about-text">
-      <p>I'm <span class="hl">Shaunak Menon</span>, a B.E. Information Technology student at <span class="hl2">Shah and Anchor Kutchhi Engineering College, Mumbai</span> — currently pursuing Honours in <span class="hl3">Artificial Intelligence and Machine Learning</span>.</p>
+      <p>I'm <span class="hl">Shaunak Menon</span>, a B.E. Computer Engineering student at <span class="hl2">Shah and Anchor Kutchhi Engineering College, Mumbai</span> — currently pursuing Honours in <span class="hl3">Artificial Intelligence and Machine Learning</span>.</p>
       <p>I have hands-on experience with Python, C, Java, and web technologies. I enjoy building and experimenting with code — from smart hardware systems using Arduino to full-stack web apps with database backends.</p>
       <p>I'm a quick learner, detail-oriented, and always open to exploring new technologies. I value teamwork, clear communication, and continuously strive to improve both my technical and problem-solving skills.</p>
       <p style="color:#888;font-size:.85rem;margin-top:1.5rem">📍 Mulund West, Mumbai — 400080</p>
@@ -289,7 +365,7 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;display:flex;justify
         </div>
         <div class="info-rows">
           <div class="info-row"><span class="ir-l">Name</span><span class="ir-v">Shaunak Menon</span></div>
-          <div class="info-row"><span class="ir-l">Degree</span><span class="ir-v">B.E. Information Technology</span></div>
+          <div class="info-row"><span class="ir-l">Degree</span><span class="ir-v">B.E. Computer Engineering</span></div>
           <div class="info-row"><span class="ir-l">College</span><span class="ir-v">SAKEC, Mumbai</span></div>
           <div class="info-row"><span class="ir-l">Best CGPA</span><span class="ir-v" style="color:var(--brown);font-weight:700">9.09 / 10</span></div>
           <div class="info-row"><span class="ir-l">Phone</span><span class="ir-v">98926 00609</span></div>
@@ -420,7 +496,7 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;display:flex;justify
       <div class="edu-dot-col"><div class="edu-dot ed-br"></div><div class="edu-line"></div></div>
       <div>
         <div class="edu-inst">Shah and Anchor Kutchhi Engineering College, Mumbai</div>
-        <div class="edu-deg">Bachelor of Engineering — Information Technology</div>
+        <div class="edu-deg">Bachelor of Engineering — Computer Engineering</div>
         <div class="edu-dur">2022 — 2026 (Expected)</div>
         <div class="cgpa-row">
           <span class="cgpa-chip">Sem I · 8.03</span>
@@ -545,14 +621,37 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 // Hero stats position
 function posStats(){
   const s=document.getElementById('hero-stats');
-  if(window.innerWidth>768){s.style.position='absolute';s.style.right='3rem';s.style.bottom='4rem';}
-  else{s.style.position='static';}
+  if(window.innerWidth>768){s.style.position='absolute';s.style.left='50%';s.style.transform='translateX(-50%)';s.style.bottom='4rem';s.style.right='auto';}
+  else{s.style.position='static';s.style.transform='none';}
 }
 posStats();window.addEventListener('resize',posStats);
 
-// Contact form
-function handleSubmit(btn){
-  const n=document.getElementById('fname').value.trim();
-  const e=document.getElementById('femail').value.trim();
-  const m=document.getElementById('fmsg').value.trim();
-  if(!n||!
+// Floating particles in hero
+const hero=document.getElementById('hero');
+for(let i=0;i<18;i++){
+  const p=document.createElement('div');
+  p.className='particle';
+  p.style.cssText=`
+    left:${Math.random()*100}%;
+    top:${Math.random()*100}%;
+    width:${2+Math.random()*4}px;
+    height:${2+Math.random()*4}px;
+    animation-duration:${6+Math.random()*10}s;
+    animation-delay:${Math.random()*8}s;
+    opacity:${0.2+Math.random()*0.4};
+  `;
+  hero.appendChild(p);
+}
+
+// Cursor glow trail
+const trail=document.createElement('div');
+trail.style.cssText='position:fixed;width:18px;height:18px;border-radius:50%;background:rgba(59,32,7,.18);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s,opacity .3s;opacity:0;';
+document.body.appendChild(trail);
+let mx=0,my=0,tx=0,ty=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;trail.style.opacity='1';});
+document.addEventListener('mouseleave',()=>trail.style.opacity='0');
+(function animTrail(){
+  tx+=(mx-tx)*.15;ty+=(my-ty)*.15;
+  trail.style.left=tx+'px';trail.style.top=ty+'px';
+  requestAnimationFrame(animTrail);
+})();
